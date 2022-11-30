@@ -71,7 +71,8 @@ module "vpc_baseline_ap-northeast-1" {
   enabled                     = local.is_enabled && contains(var.target_regions, "ap-northeast-1")
   enable_flow_logs            = var.vpc_enable_flow_logs
   flow_logs_destination_type  = var.vpc_flow_logs_destination_type
-  vpc_flow_logs_log_format    = var.vpc_flow_logs_log_format
+  flow_logs_log_format        = var.vpc_flow_logs_log_format
+  low_logs_file_format        = var.vpc_flow_logs_file_format
   flow_logs_log_group_name    = var.vpc_flow_logs_log_group_name
   flow_logs_iam_role_arn      = local.is_cw_logs ? aws_iam_role.flow_logs_publisher[0].arn : null
   flow_logs_retention_in_days = var.vpc_flow_logs_retention_in_days

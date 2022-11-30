@@ -112,12 +112,15 @@ resource "aws_cloudwatch_log_group" "vpc_flow_logs" {
 }
 
 resource "aws_flow_log" "vpc_flow_logs" {
-  for_each                 = local.vpc_id_sets
-  log_destination_type     = var.flow_logs_destination_type
-  log_destination          = local.is_cw_logs ? aws_cloudwatch_log_group.vpc_flow_logs[each.key].arn : local.s3_destination_arn
-  iam_role_arn             = local.is_cw_logs ? var.flow_logs_iam_role_arn : null
-  vpc_id                   = each.value
-  traffic_type             = "ALL"
-  tags                     = var.tags
-  vpc_flow_logs_log_format = var.vpc_flow_logs_log_format
+  for_each             = local.vpc_id_sets
+  log_destination_type = var.flow_logs_destination_type
+  log_destination      = local.is_cw_logs ? aws_cloudwatch_log_group.vpc_flow_logs[each.key].arn : local.s3_destination_arn
+  iam_role_arn         = local.is_cw_logs ? var.flow_logs_iam_role_arn : null
+  vpc_id               = each.value
+  traffic_type         = "ALL"
+  tags                 = var.tags
+  log_format           = var.flow_logs_log_format
+  destination_options {
+    file_format = var.flow_logs_file_format
+  }
 }
