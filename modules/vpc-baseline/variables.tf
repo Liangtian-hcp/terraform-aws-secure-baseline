@@ -13,6 +13,11 @@ variable "flow_logs_destination_type" {
   default     = "cloud-watch-logs"
 }
 
+variable "vpc_flow_logs_log_format" {
+  description = "The log_format of VPC Flow Logs"
+  default     = "$${account-id} $${action} $${az-id} $${bytes} $${dstaddr} $${dstport} $${end} $${flow-direction} $${instance-id} $${interface-id} $${log-status} $${packets} $${pkt-dst-aws-service} $${pkt-dstaddr} $${pkt-src-aws-service} $${pkt-srcaddr} $${protocol} $${region} $${srcaddr} $${srcport} $${start} $${sublocation-id} $${sublocation-type} $${subnet-id} $${tcp-flags} $${traffic-path} $${type} $${version} $${vpc-id}"
+}
+
 # --------------------------------------------------------------------------------------------------
 # Variables for CloudWatch Logs logging.
 # --------------------------------------------------------------------------------------------------
