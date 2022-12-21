@@ -99,3 +99,13 @@ variable "cloudtrail_depends_on" {
   description = "External resources which should be set up before CloudTrail."
   default     = []
 }
+
+variable "cloudtrail_use_external_cmk" {
+  description = "A boolean that indicates whether use the external cmk. Create a new cmk if it is set to false."
+  default     = false
+}
+
+variable "cloudtrail_external_cmk_arn" {
+  description = "external cmk arn."
+  default     = null
+}
