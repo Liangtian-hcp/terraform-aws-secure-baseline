@@ -87,6 +87,11 @@ variable "use_external_audit_log_bucket" {
   default     = false
 }
 
+variable "kms_key_arn" {
+  description = "The arn of the cloudtrail kms key."
+  default     = null
+}
+
 # --------------------------------------------------------------------------------------------------
 # Variables for iam-baseline module.
 # --------------------------------------------------------------------------------------------------
@@ -251,6 +256,10 @@ variable "vpc_flow_logs_file_format" {
 # --------------------------------------------------------------------------------------------------
 variable "config_baseline_enabled" {
   description = "Boolean whether config-baseline is enabled."
+  default     = true
+}
+variable "recorder_enabled" {
+  description = "Boolean whether config recorder is enabled."
   default     = true
 }
 

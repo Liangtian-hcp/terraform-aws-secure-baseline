@@ -35,7 +35,10 @@ variable "recorder_name" {
   description = "The name of the configuration recorder."
   default     = "default"
 }
-
+variable "recorder_enabled" {
+  description = "enabled config recorder"
+  default     = true
+}
 variable "delivery_channel_name" {
   description = "The name of the delivery channel."
   default     = "default"

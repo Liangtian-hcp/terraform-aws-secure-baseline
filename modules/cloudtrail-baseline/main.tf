@@ -70,6 +70,7 @@ resource "aws_iam_role_policy" "cloudwatch_delivery_policy" {
 # https://docs.aws.amazon.com/awscloudtrail/latest/userguide/default-cmk-policy.html
 # --------------------------------------------------------------------------------------------------
 data "aws_iam_policy_document" "cloudtrail_key_policy" {
+  count     = var.enabled && var.kms_key_arn != null ? 1 : 0
   policy_id = "Key policy created by CloudTrail"
 
   statement {
@@ -192,7 +193,7 @@ data "aws_iam_policy_document" "cloudtrail_key_policy" {
 }
 
 resource "aws_kms_key" "cloudtrail" {
-  count = var.enabled ? 1 : 0
+  count = var.enabled && var.kms_key_arn != null ? 1 : 0
 
   description             = "A KMS key to encrypt CloudTrail events."
   deletion_window_in_days = var.key_deletion_window_in_days
@@ -212,7 +213,7 @@ resource "aws_sns_topic" "cloudtrail-sns-topic" {
   count = var.cloudtrail_sns_topic_enabled && var.enabled ? 1 : 0
 
   name              = var.cloudtrail_sns_topic_name
-  kms_master_key_id = aws_kms_key.cloudtrail[0].id
+  kms_master_key_id = var.kms_key_arn == null ? aws_kms_key.cloudtrail[0].arn : var.kms_key_arn
 }
 
 data "aws_iam_policy_document" "cloudtrail-sns-policy" {
@@ -251,7 +252,7 @@ resource "aws_cloudtrail" "global" {
   include_global_service_events = true
   is_multi_region_trail         = true
   is_organization_trail         = var.is_organization_trail
-  kms_key_id                    = aws_kms_key.cloudtrail[0].arn
+  kms_key_id                    = var.kms_key_arn == null ? aws_kms_key.cloudtrail[0].arn : var.kms_key_arn
   s3_bucket_name                = var.s3_bucket_name
   s3_key_prefix                 = var.s3_key_prefix
   sns_topic_name                = var.cloudtrail_sns_topic_enabled ? aws_sns_topic.cloudtrail-sns-topic[0].arn : null

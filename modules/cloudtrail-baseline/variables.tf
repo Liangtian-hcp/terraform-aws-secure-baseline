@@ -64,7 +64,10 @@ variable "s3_key_prefix" {
   description = "The prefix for the specified S3 bucket."
   default     = ""
 }
-
+variable "kms_key_arn" {
+  description = "The arn of the cloudtrail kms key."
+  default     = null
+}
 variable "is_organization_trail" {
   description = "Specifies whether the trail is an AWS Organizations trail. Organization trails log events for the master account and all member accounts. Can only be created in the organization master account."
   default     = false
