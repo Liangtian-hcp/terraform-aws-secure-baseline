@@ -70,7 +70,6 @@ resource "aws_iam_role_policy" "cloudwatch_delivery_policy" {
 # https://docs.aws.amazon.com/awscloudtrail/latest/userguide/default-cmk-policy.html
 # --------------------------------------------------------------------------------------------------
 data "aws_iam_policy_document" "cloudtrail_key_policy" {
-  count     = var.enabled && var.kms_key_arn != null ? 1 : 0
   policy_id = "Key policy created by CloudTrail"
 
   statement {
