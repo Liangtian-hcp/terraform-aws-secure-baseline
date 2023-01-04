@@ -80,6 +80,6 @@ resource "aws_config_configuration_recorder_status" "recorder" {
 
   name = aws_config_configuration_recorder.recorder[0].id
 
-  is_enabled = true
+  is_enabled = var.recorder_enabled
   depends_on = [aws_config_delivery_channel.bucket[0]]
 }

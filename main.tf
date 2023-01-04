@@ -82,9 +82,8 @@ module "cloudtrail_baseline" {
   region                            = var.region
   s3_bucket_name                    = local.audit_log_bucket_id
   s3_key_prefix                     = var.cloudtrail_s3_key_prefix
-  cloudtrail_use_external_cmk       = var.cloudtrail_use_external_cmk
-  cloudtrail_external_cmk_arn       = var.cloudtrail_external_cmk_arn
   s3_object_level_logging_buckets   = var.cloudtrail_s3_object_level_logging_buckets
+  kms_key_arn                       = var.kms_key_arn
   dynamodb_event_logging_tables     = var.cloudtrail_dynamodb_event_logging_tables
   lambda_invocation_logging_lambdas = var.cloudtrail_lambda_invocation_logging_lambdas
   is_organization_trail             = local.is_master_account

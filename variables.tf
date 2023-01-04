@@ -87,6 +87,11 @@ variable "use_external_audit_log_bucket" {
   default     = false
 }
 
+variable "kms_key_arn" {
+  description = "The arn of the cloudtrail kms key."
+  default     = null
+}
+
 # --------------------------------------------------------------------------------------------------
 # Variables for iam-baseline module.
 # --------------------------------------------------------------------------------------------------
@@ -253,6 +258,10 @@ variable "config_baseline_enabled" {
   description = "Boolean whether config-baseline is enabled."
   default     = true
 }
+variable "recorder_enabled" {
+  description = "Boolean whether config recorder is enabled."
+  default     = true
+}
 
 variable "config_delivery_frequency" {
   description = "The frequency which AWS Config sends a snapshot into the S3 bucket."
@@ -368,15 +377,6 @@ variable "cloudtrail_lambda_invocation_logging_lambdas" {
   default     = ["arn:aws:lambda"] # All lambdas
 }
 
-variable "cloudtrail_use_external_cmk" {
-  description = "A boolean that indicates whether use the external cmk. Create a new cmk if it is set to false."
-  default     = false
-}
-
-variable "cloudtrail_external_cmk_arn" {
-  description = "external cmk arn."
-  default     = null
-}
 # --------------------------------------------------------------------------------------------------
 # Variables for alarm-baseline module.
 # --------------------------------------------------------------------------------------------------

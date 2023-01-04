@@ -64,7 +64,10 @@ variable "s3_key_prefix" {
   description = "The prefix for the specified S3 bucket."
   default     = ""
 }
-
+variable "kms_key_arn" {
+  description = "The arn of the cloudtrail kms key."
+  default     = null
+}
 variable "is_organization_trail" {
   description = "Specifies whether the trail is an AWS Organizations trail. Organization trails log events for the master account and all member accounts. Can only be created in the organization master account."
   default     = false
@@ -98,14 +101,4 @@ variable "tags" {
 variable "cloudtrail_depends_on" {
   description = "External resources which should be set up before CloudTrail."
   default     = []
-}
-
-variable "cloudtrail_use_external_cmk" {
-  description = "A boolean that indicates whether use the external cmk. Create a new cmk if it is set to false."
-  default     = false
-}
-
-variable "cloudtrail_external_cmk_arn" {
-  description = "external cmk arn."
-  default     = null
 }
